@@ -4,6 +4,7 @@ import json
 import os
 import sys
 
+
 # OpenAI
 import openai
 
@@ -45,20 +46,36 @@ def display_intro():
     print("If you need clarification on any question, you can discuss it with ChatGPT.\n")
 
 # Define argument parser
-parser = argparse.ArgumentParser(description='Interactively chat with OpenAI for security assessment.', add_help=False)
+parser = argparse.ArgumentParser(description='Interactively chat with OpenAI.')
 parser.add_argument('--api_key', action='store_true', help='Prompt for your OpenAI API key.')
 parser.add_argument('-m', '--model', type=str, default="gpt-4", help='The model to be used for the conversation.')
-parser.add_argument('-h', '--help', action='store_true', help='Display this help message and exit.')
+parser.add_argument('-l', '--long', action='store_true', help='Use the full set of security questions.')
 
 # Parse arguments
 args = parser.parse_args()
 
+# Help
+def display_custom_help():
+    print("Custom Help Message")
+    print("Usage: poc-gpt-infosec-consultant [options]")
+    print("Options:")
+    print("  --api_key            Prompt for your OpenAI API key.")
+    print("  -m, --model          Specify the model (default: gpt-4).")
+    print("  -l, --long           Use the full set of security questions.")
+    print("  --custom-help        Display this custom help message.")
+    # Add more instructions as needed
+
+# Load the appropriate JSON file based on the -l flag
+questions_file = "security_questions-short.json" if not args.long else "security_questions.json"
+with open(questions_file, 'r') as file:
+    security_questions = json.load(file)
+
 # Starting the conversation with the AI
 messages = []
 
-if args.help:
-    parser.print_help()
-    sys.exit(0)
+if args.custom_help:
+    display_custom_help()
+    exit()
 
 # Set API key
 if args.api_key:
