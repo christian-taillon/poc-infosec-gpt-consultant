@@ -1,7 +1,3 @@
-Certainly! I'll update the README to include instructions for using the installation scripts and the command `poc-gpt-infosec-consultant`. I'll also add information about the two different JSON files for the security questions and how to use the `-l` flag for a quick proof of concept with fewer questions.
-
----
-
 # Security Assessment Chatbot - Proof of Concept
 
 ## Overview
